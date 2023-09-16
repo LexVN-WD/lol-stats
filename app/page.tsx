@@ -10,8 +10,7 @@ export default function Home() {
 
   return (
     <div>
-      <h1>League of Legends Champion Lookup</h1>
-      <ChampionInfo />
+      <h1>League of Legends Database</h1>
     </div>
   );
 };

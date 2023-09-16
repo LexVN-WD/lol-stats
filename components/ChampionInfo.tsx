@@ -6,22 +6,33 @@ const BASE_URL =
 
 const ChampionInfo = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [championPicture, setChampionPicture] = useState(null);
+  const [championData, setChampionData] = useState(null);
+  const [selectedChampion, setSelectedChampion] = useState(null);
 
-  const handleSearch = async () => {
+  useEffect(() => {
+    const fetchChampionData = async () => {
+      const response = await fetch(`${BASE_URL}`);
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch champion data");
+      }
+
+      const data = await response.json();
+      setChampionData(data.data);
+    };
+
+    fetchChampionData();
+  }, []);
+
+  const handleSearch = () => {
     const capitalizedQuery =
       searchQuery.charAt(0).toUpperCase() + searchQuery.slice(1);
 
-    const response = await fetch(`${BASE_URL}`);
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch champion data");
+    if (championData && championData[capitalizedQuery]) {
+      setSelectedChampion(championData[capitalizedQuery]);
+    } else {
+      setSelectedChampion(null);
     }
-
-    const data = await response.json();
-    const championPicture = data.data[capitalizedQuery].image.full;
-
-    setChampionPicture(championPicture);
   };
 
   return (
@@ -34,14 +45,28 @@ const ChampionInfo = () => {
         className="text-black"
       />
       <button onClick={handleSearch}>Search</button>
-      {championPicture && (
-        <div>
-          <img
-            src={`http://ddragon.leagueoflegends.com/cdn/13.18.1/img/champion/${championPicture}`}
-            alt="Champion"
-          />
-        </div>
-      )}
+      <div className="champion-grid">
+        {selectedChampion ? (
+          <div>
+            <h2>{selectedChampion.name}</h2>
+            <img
+              src={`http://ddragon.leagueoflegends.com/cdn/13.18.1/img/champion/${selectedChampion.image.full}`}
+              alt={selectedChampion.name}
+            />
+          </div>
+        ) : (
+          championData &&
+          Object.values(championData).map((champion) => (
+            <div key={champion.id} className="champion-card">
+              <h2>{champion.name}</h2>
+              <img
+                src={`http://ddragon.leagueoflegends.com/cdn/13.18.1/img/champion/${champion.image.full}`}
+                alt={champion.name}
+              />
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 };

@@ -1,8 +1,12 @@
 import React from 'react'
+import { ChampionInfo } from '@/components'
 
 const Champions = () => {
   return (
-    <div>Champions page</div>
+    <div className="champion-info">
+      <h1>Champions</h1>
+      <ChampionInfo />
+    </div>
   )
 }
 
