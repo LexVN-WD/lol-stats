@@ -25,3 +25,16 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+/* General Styles */
+.champion-info {
+  @apply flex flex-col items-center;
+}
+
+.champion-grid {
+  @apply grid grid-cols-12 gap-4 max-w-[1440px] mx-auto;
+}
+
+.champion-card {
+  @apply flex flex-col border p-4 text-center;
+}
