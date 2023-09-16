@@ -27,7 +27,7 @@ body {
 }
 
 /* General Styles */
-.champion-info {
+.champions {
   @apply flex flex-col items-center;
 }
 

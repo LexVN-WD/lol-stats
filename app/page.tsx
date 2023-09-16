@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { SearchBar, ChampionInfo } from "@/components";
 
 
 export default function Home() {
