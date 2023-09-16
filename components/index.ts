@@ -1,11 +1,12 @@
 // exported components
-
-import Hero from "./Hero";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import SearchBar from "./Searchbar";
+import ChampionInfo from "./ChampionInfo";
 
 export {
-  Hero,
   Navbar,
   Footer,
+  SearchBar,
+  ChampionInfo,
 };
