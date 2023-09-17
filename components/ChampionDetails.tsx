@@ -5,17 +5,17 @@ const ChampionDetails = ({ champion, onBack }) => {
   const baseSkinString = champion.id + "_0";
 
   return (
-    <div>
-      <button
-        onClick={onBack}
-        className="mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      >
-        Back to List
-      </button>
-      <h2>{champion.name}</h2>
+    <div className="champion-details">
+        <div className="champion-details__container">
+          <h2>{champion.name}</h2>
+          <button onClick={onBack} className="champion-details__backbutton">
+            Back to List
+          </button>
+      </div>
       <img
         src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${baseSkinString}.jpg`}
         alt={champion.name}
+        className="champion-details__splash"
       />
       {/* Add additional champion details here */}
     </div>

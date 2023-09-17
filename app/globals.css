@@ -2,43 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+
+body::-webkit-scrollbar{
+    display: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+/* Navbar Styles */
+
+.navbar {
+  @apply flex flex-row items-center justify-around w-full h-20 px-4 bg-slate-300 text-black font-extrabold;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.navbar__items {
+  @apply flex flex-row items-center justify-between w-1/2 text-2xl;
 }
 
-/* General Styles */
+
+/* Champions Styles */
 .champions {
-  @apply flex flex-col items-center;
+  @apply flex flex-row items-center justify-center px-16 bg-slate-300;
 }
 
 .champion-grid {
-  @apply grid grid-cols-12 gap-4 max-w-screen-2xl mx-auto;
+  @apply grid grid-cols-12 gap-4 mx-auto;
 }
 
 .champion-card {
-  @apply flex flex-col border p-4 text-center;
+  @apply flex flex-col border border-black p-4 text-center;
 }
 
 .champion-details {
-  @apply h-full w-full flex justify-center items-center;
+  @apply h-screen w-screen flex flex-col justify-center items-center relative;
+}
+
+.champion-details__container {
+  @apply flex flex-row items-center justify-around w-full absolute top-0;
+}
+
+.champion-details__backbutton {
+  @apply mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded absolute top-0 right-0;
+}
+
+.champion-details__splash {
+  @apply h-fit w-auto;
 }
