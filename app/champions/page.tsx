@@ -1,6 +1,6 @@
 "use client";
-
 import React, { useState, useEffect } from "react";
+import ChampionDetails from "@/components/ChampionDetails";
 
 const BASE_URL =
   "http://ddragon.leagueoflegends.com/cdn/13.18.1/data/en_US/champion.json";
@@ -8,6 +8,7 @@ const BASE_URL =
 const Champions = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [championData, setChampionData] = useState(null);
+  const [showSplashArt, setShowSplashArt] = useState(false); // Track whether a champion is clicked
   const [selectedChampion, setSelectedChampion] = useState(null);
 
   useEffect(() => {
@@ -31,9 +32,16 @@ const Champions = () => {
 
     if (championData && championData[capitalizedQuery]) {
       setSelectedChampion(championData[capitalizedQuery]);
+      setShowSplashArt(true); // Set the state to true when a champion is clicked
     } else {
       setSelectedChampion(null);
+      setShowSplashArt(false);
     }
+  };
+
+  const resetChampionDetail = () => {
+    setShowSplashArt(false);
+    setSelectedChampion(null);
   };
 
   return (
@@ -46,28 +54,33 @@ const Champions = () => {
         className="text-black"
       />
       <button onClick={handleSearch}>Search</button>
-      <div className="champion-grid">
-        {selectedChampion ? (
-          <div>
-            <h2>{selectedChampion.name}</h2>
-            <img
-              src={`http://ddragon.leagueoflegends.com/cdn/13.18.1/img/champion/${selectedChampion.image.full}`}
-              alt={selectedChampion.name}
-            />
-          </div>
-        ) : (
-          championData &&
-          Object.values(championData).map((champion) => (
-            <div key={champion.id} className="champion-card">
-              <h2>{champion.name}</h2>
-              <img
-                src={`http://ddragon.leagueoflegends.com/cdn/13.18.1/img/champion/${champion.image.full}`}
-                alt={champion.name}
-              />
-            </div>
-          ))
-        )}
-      </div>
+      {showSplashArt ? (
+        <ChampionDetails
+          champion={selectedChampion}
+          onBack={resetChampionDetail}
+          className="champion-details"
+        />
+      ) : (
+        <div className="champion-grid">
+          {championData &&
+            Object.values(championData).map((champion) => (
+              <div
+                key={champion.id}
+                className="champion-card"
+                onClick={() => {
+                  setSelectedChampion(champion);
+                  setShowSplashArt(true); // Set the state to true when a champion is clicked
+                }}
+              >
+                <h2>{champion.name}</h2>
+                <img
+                  src={`http://ddragon.leagueoflegends.com/cdn/13.18.1/img/champion/${champion.image.full}`}
+                  alt={champion.name}
+                />
+              </div>
+            ))}
+        </div>
+      )}
     </div>
   );
 };

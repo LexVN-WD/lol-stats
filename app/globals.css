@@ -32,9 +32,13 @@ body {
 }
 
 .champion-grid {
-  @apply grid grid-cols-12 gap-4 max-w-[1440px] mx-auto;
+  @apply grid grid-cols-12 gap-4 max-w-screen-2xl mx-auto;
 }
 
 .champion-card {
   @apply flex flex-col border p-4 text-center;
+}
+
+.champion-details {
+  @apply h-full w-full flex justify-center items-center;
 }
